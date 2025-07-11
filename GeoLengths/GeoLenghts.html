@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> GeoLengths </title>
+  <style>
+    
+    body  { font-family: Arial, sans-serif; 
+      padding: 20px;
+       background:rgb(150, 210, 111);
+       text-align:center;
+    justify-content:center;}
+    h2 { color: #0b0e69; }
+    label { display: block;
+       margin: 30px  25px; }
+    input { padding: 6px; 
+      width: 100px; }
+    button { margin-top: 15px; 
+      padding: 8px 12px; 
+      cursor: pointer; }
+    #output  { margin: 8px 0;
+       color: #070f50;
+        font-weight: bold;
+        text-align:center; }
+  </style>
+  <script>
+    
+    function calculate() {
+        const y = parseFloat(document.getElementById("y").value);
+      const dydx = parseFloat(document.getElementById("dydx").value);
+
+      if (isNaN(y) || isNaN(dydx) ||dydx === 0) {
+        document.getElementById("output").innerHTML =
+          "<p>Please enter valid values. dy/dx must not be zero. </p>";
+        return;
+      }
+
+      const tangent =Math.abs (y)* Math.sqrt(1 + Math.pow(1/dydx, 2)).toFixed(3);
+      const subtangent = Math.abs(y) *Math.abs(1/dydx).toFixed(3);
+      const normal = Math.abs (y)* Math.sqrt(1+ Math.pow(dydx,2)).toFixed(3);
+      const subnormal = Math.abs(y) *Math.abs(dydx).toFixed(3);
+
+      document.getElementById("output").innerHTML=`
+        <p> Tangent: ${tangent}</p>
+        <p> Subtangent: ${subtangent}</p>
+        <p> Normal: ${normal}</p>
+        <p> Subnormal: ${subnormal}</p>`;
+    }
+  </script>
+</head>
+<body>
+  <h2>GeoLengths</h2>
+  <label for="y">y = f(x):</label>
+  <input type="number" id="y" step="any">
+  <label for="dydx">dy/dx at x:</label>
+  <input type="number" id="dydx" step="any">
+  <br>
+  <button onclick="calculate()">Calculate</button>
+  <div id="output"></div>
+<button onclick="location.reload()">Restart</button>
+
+  
+</body>
+</html>
